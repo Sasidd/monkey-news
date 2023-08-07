@@ -13,7 +13,7 @@ const Newsitem=(props)=> {
           <a href={props.url} target="_blank" className="btn btn-primary">Show More</a>
           <p className="card-text"><small className="text-muted">By {props.author==null?'Unknown':props.author} at {new Date(props.time).toGMTString()}</small></p>
           <span className="position-absolute top-0 lefty translate-middle badge rounded-pill bg-danger">
-    {props.source}
+    {props.source?props.source:'Unknown Source'}
     <span className="visually-hidden">unread messages</span>
   </span>
         </div>

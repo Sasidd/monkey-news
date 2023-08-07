@@ -12,10 +12,10 @@ const News=(props)=> {
 
   const fetchData = async () =>{
     let api=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&totalResult=${totalResults}&pageSize=${props.pageSize}`;
-    console.log(api)
+    console.log('API=>',api)
     let data=await fetch(api)
     let passedData=await data.json()
-    console.log(passedData)
+    console.log('passed Data=>',passedData)
     setArticles(passedData.articles)
     setTotalResults(passedData.totalResults)
     setLoading(null)
@@ -24,43 +24,15 @@ const News=(props)=> {
 
 useEffect(()=>{
   fetchData()
-},[])
+},[page])
 
 
   const handlePrev=()=>{
     setPage(page-1);
-    fetchData()
-
-    // let api=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${setPage(page-1)}&totalResult=${totalResults}&pageSize=${props.pageSize}`;
-    // console.log(api)
-    // let data=await fetch(api)
-    // let passedData=await data.json()
-    // setArticles(passedData.articles)
-    // setTotalResults(passedData.totalResults)
-    // setLoading(null)
-    // setPage(page-1)
-    // document.title=`News Application-${this.props.category}`
-    // document.body.style.backgroundColor='#F7CAC9'
   }
 
   const handleNext=()=>{
     setPage(page+1);
-    fetchData()
-    // if(page < Math.ceil(totalResults/props.pageSize)){
-    // console.log('test')
-    // let api=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${setPage(page+1)}&totalResult=${totalResults}&pageSize=${props.pageSize}`;
-    // console.log('hi')
-    // console.log(api)
-    // let data=await fetch(api)
-    // let passedData=await data.json()
-    // setArticles(passedData.articles)
-    // setTotalResults(passedData.totalResults)
-    // setLoading(null)
-    // setPage(page+1)
-    // }
-    // else{
-    // }
-    // document.title=`News Application-${props.category}`
   }
 return (
   <>
@@ -70,7 +42,7 @@ return (
       <div className="row">
         {articles.map((element)=>{
            return <div className="col-lg-4 col-md-6  my-3" key={element.url}>
-          <Newsitem titles={element.title} desc={element.description==null?'NO DESCRIPTION AVAILABLE':element.description} image={element.urlToImage==null?'https://mma.prnewswire.com/media/1333368/InvestorsObserver_Logo.jpg?p=facebook':element.urlToImage} url={element.url} author={element.author} time={element.publishedAt} source={element.source.name} />
+          <Newsitem titles={element.title} desc={element.description==null?'NO DESCRIPTION AVAILABLE':element.description} image={element.urlToImage==null || element.urlToImage==undefined?'https://mma.prnewswire.com/media/1333368/InvestorsObserver_Logo.jpg?p=facebook':element.urlToImage} url={element.url} author={element.author} time={element.publishedAt} source={element.source.name} />
           </div>
           })}
         </div>
